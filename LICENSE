@@ -1,21 +1,165 @@
-MIT License
+# Own Bazar License
 
-Copyright (c) 2026 shadinislam01
+## 📄 LICENSE AGREEMENT
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+**Product Name:** Own Bazar  
+**Version:** 2.0.0  
+**License Type:** Commercial Use License  
+**Issued To:** License Holder  
+**Issued Date:** [Date of Purchase]
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+## 1. GRANT OF LICENSE
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+This License Agreement ("Agreement") grants you, the Licensee, a non-exclusive, non-transferable right to use the Own Bazar software ("Software") under the terms and conditions set forth herein.
+
+## 2. PERMITTED USES
+
+✅ **You MAY:**
+- Use the Software for commercial purposes
+- Modify the source code for your own use
+- Deploy the Software on unlimited domains
+- Charge users for using your service
+- Resell access to your service
+- Use in production environments
+- Modify and customize as needed
+
+## 3. RESTRICTIONS
+
+❌ **You MAY NOT:**
+- Resell, redistribute, or sublicense the source code
+- Claim authorship of the original code
+- Remove copyright notices
+- Use the Software for illegal purposes
+- Reverse engineer the compiled code
+- Distribute modified versions as a product
+
+## 4. OWNERSHIP
+
+The original source code remains the property of the original developer. You own the modifications you make but not the original codebase.
+
+## 5. SUPPORT
+
+This license includes:
+- Lifetime updates
+- Bug fixes
+- Basic installation support
+- Documentation access
+
+## 6. WARRANTY DISCLAIMER
+
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. THE AUTHOR SHALL NOT BE LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.
+
+## 7. TERMINATION
+
+This license is terminated if you:
+- Violate any terms of this agreement
+- Use the Software for illegal activities
+- Attempt to resell the source code
+
+## 8. REFUND POLICY
+
+No refunds are provided after purchase as this is a digital product.
+
+## 📋 TECHNICAL SPECIFICATIONS
+
+**System Requirements:**
+- Python 3.8+
+- SQLite3 Database
+- Telegram Bot API Access
+- Web Hosting (Render/Heroku/AWS)
+- Domain/Subdomain
+
+**Features Included:**
+- ✅ Complete Telegram Bot
+- ✅ Web Dashboard
+- ✅ Ad Integration System
+- ✅ Shop System
+- ✅ Admin Panel
+- ✅ User Management
+- ✅ Transaction History
+- ✅ Multiple Ad Networks
+- ✅ Credit System
+
+**Updates Included:**
+- ✅ Security Patches
+- ✅ Bug Fixes
+- ✅ Feature Updates
+- ✅ Compatibility Updates
+
+## 🔒 SECURITY NOTES
+
+1. Always change default admin credentials
+2. Use HTTPS for production
+3. Regular database backups
+4. Monitor user activities
+5. Keep software updated
+
+## 📞 SUPPORT
+
+**Support Channels:**
+- Email: [Your Email]
+- Telegram: @shadinislam01
+- Documentation: [Your Docs URL]
+
+**Response Time:**
+- Business Days: 24-48 hours
+- Weekends: 48-72 hours
+
+## 📝 CHANGE LOG
+
+**Version 2.0.0** - [Release Date]
+- Complete redesign with modern UI
+- Enhanced ad system
+- Improved admin panel
+- Better user management
+- Added animations and effects
+- Mobile responsive design
+
+## 🎯 COMPLIANCE
+
+By using this Software, you agree to:
+- Comply with all applicable laws
+- Respect user privacy
+- Provide fair service terms
+- Maintain ethical business practices
+
+---
+
+## 📧 CONTACT INFORMATION
+
+**License Issuer:** [Your Company/Name]  
+**Email:** [Your Email]  
+**Telegram:** @shadinislam01  
+**Website:** [Your Website]
+
+## 📄 SIGNATURE
+
+**License Holder:** _________________________
+**Name:** _________________________________
+**Date:** _________________________________
+**Signature:** ____________________________
+
+**License Issuer:** _________________________
+**Name:** [Your Name]
+**Date:** _________________________________
+**Signature:** ____________________________
+
+---
+
+**Note:** This is a standard license agreement. For legal advice, consult with an attorney. Keep this license file with your project files.
+
+---
+
+## 🏷️ LICENSE KEY (For Reference Only)
+
+```
+License: OWBZR-COMM-2.0
+Key: [YOUR_LICENSE_KEY]
+Expiry: LIFETIME
+Status: ACTIVE
+```
+
+---
+
+*Last Updated: [Current Date]*  
+*© [Current Year] Own Bazar. All rights reserved.*
