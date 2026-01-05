@@ -1,0 +1,3317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>⚡ Own Bazar - Earn & Shop Fast</title>
+    
+    <!-- Telegram Web App SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PWA Meta -->
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            
+            /* Ad Colors */
+            --ad-popup: #0ea5e9;
+            --ad-video: #ef4444;
+            --ad-premium: #8b5cf6;
+            --ad-banner: #FF6900;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-success: linear-gradient(135deg, var(--success), #059669);
+            --gradient-dark: linear-gradient(135deg, var(--dark), #1e293b);
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.2);
+            
+            /* Spacing */
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            
+            /* Typography */
+            --font-sm: 14px;
+            --font-base: 16px;
+            --font-lg: 18px;
+            --font-xl: 20px;
+            --font-2xl: 24px;
+            --font-3xl: 30px;
+            --font-4xl: 36px;
+        }
+        
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.5;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+            min-height: 100vh;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: var(--space-md);
+        }
+        
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: var(--space-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-xl);
+        }
+        
+        .logo-text {
+            font-size: var(--font-xl);
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+        
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .icon-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* User Card */
+        .user-card {
+            background: var(--gradient-dark);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            margin: var(--space-lg) 0;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-3xl);
+            border: 4px solid rgba(255,255,255,0.2);
+        }
+        
+        .user-details {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .user-handle {
+            color: var(--gray);
+            font-size: var(--font-sm);
+        }
+        
+        .balance-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .balance-label {
+            font-size: var(--font-sm);
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .balance-amount {
+            font-size: var(--font-4xl);
+            font-weight: 800;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin: var(--space-xl) 0;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-xl);
+            margin-bottom: var(--space-md);
+        }
+        
+        .stat-earn .stat-icon { background: rgba(16,185,129,0.2); color: var(--success); }
+        .stat-spend .stat-icon { background: rgba(59,130,246,0.2); color: var(--primary); }
+        .stat-ads .stat-icon { background: rgba(255,105,0,0.2); color: var(--ad-banner); }
+        .stat-buy .stat-icon { background: rgba(139,92,246,0.2); color: var(--secondary); }
+        
+        .stat-value {
+            font-size: var(--font-2xl);
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: var(--font-sm);
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin: var(--space-xl) 0;
+        }
+        
+        .action-btn {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+        
+        .action-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-2xl);
+        }
+        
+        .action-shop .action-icon { background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(30,64,175,0.2)); color: var(--primary); }
+        .action-earn .action-icon { background: linear-gradient(135deg, rgba(255,105,0,0.2), rgba(194,65,12,0.2)); color: var(--ad-banner); }
+        .action-history .action-icon { background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(109,40,217,0.2)); color: var(--secondary); }
+        .action-support .action-icon { background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(4,120,87,0.2)); color: var(--success); }
+        
+        .action-text {
+            font-size: var(--font-lg);
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .action-subtext {
+            font-size: var(--font-sm);
+            color: var(--gray);
+            text-align: center;
+        }
+        
+        /* Section Header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: var(--space-xl) 0 var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        
+        .section-title {
+            font-size: var(--font-2xl);
+            font-weight: 800;
+        }
+        
+        .section-subtitle {
+            font-size: var(--font-sm);
+            color: var(--gray);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        /* Ads Section */
+        .ads-container {
+            margin: var(--space-xl) 0;
+        }
+        
+        /* Ad Card */
+        .ad-card {
+            background: var(--gradient-dark);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .ad-card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .ad-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-3xl);
+        }
+        
+        .ad-popup .ad-icon { background: linear-gradient(135deg, rgba(14,165,233,0.2), rgba(2,132,199,0.2)); color: var(--ad-popup); }
+        .ad-video .ad-icon { background: linear-gradient(135deg, rgba(239,68,68,0.2), rgba(220,38,38,0.2)); color: var(--ad-video); }
+        .ad-premium .ad-icon { background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(109,40,217,0.2)); color: var(--ad-premium); }
+        .ad-banner .ad-icon { background: linear-gradient(135deg, rgba(255,105,0,0.2), rgba(194,65,12,0.2)); color: var(--ad-banner); }
+        
+        .ad-title-container {
+            flex: 1;
+        }
+        
+        .ad-title {
+            font-size: var(--font-xl);
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        
+        .ad-subtitle {
+            color: var(--gray);
+            font-size: var(--font-sm);
+        }
+        
+        .ad-reward-badge {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: var(--font-sm);
+            font-weight: 700;
+        }
+        
+        .ad-popup .ad-reward-badge { color: var(--ad-popup); }
+        .ad-video .ad-reward-badge { color: var(--ad-video); }
+        .ad-premium .ad-reward-badge { color: var(--ad-premium); }
+        .ad-banner .ad-reward-badge { color: var(--ad-banner); }
+        
+        .ad-description {
+            color: var(--gray);
+            margin-bottom: var(--space-xl);
+            line-height: 1.6;
+        }
+        
+        .ad-progress {
+            margin: var(--space-xl) 0;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .progress-label {
+            font-size: var(--font-sm);
+            color: var(--gray);
+        }
+        
+        .progress-value {
+            font-size: var(--font-sm);
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 1s ease;
+        }
+        
+        .ad-popup .progress-fill { background: linear-gradient(90deg, var(--ad-popup), #0284c7); }
+        .ad-video .progress-fill { background: linear-gradient(90deg, var(--ad-video), #dc2626); }
+        .ad-premium .progress-fill { background: linear-gradient(90deg, var(--ad-premium), #7c3aed); }
+        .ad-banner .progress-fill { background: linear-gradient(90deg, var(--ad-banner), #FF8C00); }
+        
+        .ad-button {
+            width: 100%;
+            padding: var(--space-lg);
+            border: none;
+            border-radius: 16px;
+            font-size: var(--font-lg);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-md);
+        }
+        
+        .ad-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .ad-popup .ad-button { background: linear-gradient(135deg, var(--ad-popup), #0284c7); color: white; }
+        .ad-video .ad-button { background: linear-gradient(135deg, var(--ad-video), #dc2626); color: white; }
+        .ad-premium .ad-button { background: linear-gradient(135deg, var(--ad-premium), #7c3aed); color: white; }
+        .ad-banner .ad-button { background: linear-gradient(135deg, var(--ad-banner), #FF8C00); color: white; }
+        
+        .ad-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        /* Shop Items */
+        .shop-items-grid {
+            display: grid;
+            gap: var(--space-lg);
+        }
+        
+        .shop-item {
+            background: var(--gradient-dark);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
+        }
+        
+        .shop-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .shop-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--space-md);
+        }
+        
+        .item-name {
+            font-size: var(--font-lg);
+            font-weight: 700;
+            flex: 1;
+        }
+        
+        .item-price {
+            background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(217,119,6,0.2));
+            color: var(--warning);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: var(--font-sm);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .item-meta {
+            display: flex;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            font-size: var(--font-sm);
+            color: var(--gray);
+        }
+        
+        .buy-button {
+            width: 100%;
+            padding: var(--space-md);
+            background: linear-gradient(135deg, var(--warning), #d97706);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: var(--font-base);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        
+        .buy-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .buy-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: var(--gray);
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+        }
+        
+        .nav-icon {
+            font-size: var(--font-xl);
+        }
+        
+        .nav-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-md);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: var(--gradient-dark);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .modal-header {
+            padding: var(--space-xl);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: var(--font-xl);
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: var(--space-xl);
+        }
+        
+        .detail-box {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-family: monospace;
+            font-size: var(--font-sm);
+            line-height: 1.6;
+            word-break: break-all;
+        }
+        
+        .info-grid {
+            display: grid;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .modal-actions {
+            display: grid;
+            gap: var(--space-md);
+        }
+        
+        .modal-btn {
+            padding: var(--space-lg);
+            border: none;
+            border-radius: 12px;
+            font-size: var(--font-base);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        
+        .btn-success {
+            background: var(--gradient-success);
+            color: white;
+        }
+        
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--gradient-success);
+            color: white;
+            padding: var(--space-lg) var(--space-xl);
+            border-radius: 16px;
+            font-weight: 600;
+            z-index: 2000;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .toast.error {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+        }
+        
+        .toast.warning {
+            background: linear-gradient(135deg, var(--warning), #d97706);
+        }
+        
+        /* Loading */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.1);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: var(--space-lg);
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Utility */
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: var(--space-sm);
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--space-md);
+            }
+        }
+        
+        /* Admin Badge */
+        .admin-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: glow 2s infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(255,215,0,0.5); }
+            50% { box-shadow: 0 0 20px rgba(255,215,0,0.8); }
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            margin: var(--space-lg) 0;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .admin-section {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+        
+        .admin-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .admin-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+        
+        .admin-input {
+            width: 100%;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: var(--font-sm);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .admin-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* Ad Frame */
+        .ad-frame-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            z-index: 9998;
+            display: none;
+        }
+        
+        .ad-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .ad-close-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div style="text-align: center;">
+            <div class="loading-spinner"></div>
+            <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Loading Own Bazar</div>
+            <div style="color: var(--gray); font-size: 14px;" id="loading-subtext">Initializing...</div>
+        </div>
+    </div>
+    
+    <!-- Ad Frame Container -->
+    <div class="ad-frame-container" id="ad-frame-container">
+        <button class="ad-close-btn" onclick="closeAdFrame()">
+            <i class="fas fa-times"></i>
+        </button>
+        <iframe class="ad-frame" id="ad-frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+    </div>
+    
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <div class="logo-text">Own Bazar</div>
+        </div>
+        <div class="header-actions">
+            <div class="icon-btn" onclick="refreshData()" title="Refresh">
+                <i class="fas fa-sync-alt"></i>
+            </div>
+            <div class="icon-btn" onclick="window.close()" title="Close">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Dashboard View -->
+        <div id="dashboard-view">
+            <!-- Admin Badge -->
+            <div class="admin-badge hidden" id="admin-badge">ADMIN</div>
+            
+            <!-- User Card -->
+            <div class="user-card">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <div class="user-name" id="user-name">Loading...</div>
+                        <div class="user-handle" id="user-handle">@username</div>
+                    </div>
+                </div>
+                <div class="balance-card">
+                    <div class="balance-label">Available Credits</div>
+                    <div class="balance-amount" id="user-balance">0</div>
+                    <div class="balance-subtext" id="user-telegram-id">ID: Loading...</div>
+                </div>
+            </div>
+            
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card stat-earn">
+                    <div class="stat-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div class="stat-value" id="total-earned">0</div>
+                    <div class="stat-label">Total Earned</div>
+                </div>
+                <div class="stat-card stat-spend">
+                    <div class="stat-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <div class="stat-value" id="total-spent">0</div>
+                    <div class="stat-label">Total Spent</div>
+                </div>
+                <div class="stat-card stat-ads">
+                    <div class="stat-icon">
+                        <i class="fas fa-ad"></i>
+                    </div>
+                    <div class="stat-value" id="total-ads">0</div>
+                    <div class="stat-label">Ads Today</div>
+                </div>
+                <div class="stat-card stat-buy">
+                    <div class="stat-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-value" id="total-purchases">0</div>
+                    <div class="stat-label">Purchases</div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="section-header">
+                <div>
+                    <div class="section-title">Quick Actions</div>
+                    <div class="section-subtitle">Tap to navigate</div>
+                </div>
+                <div class="badge">FAST</div>
+            </div>
+            
+            <div class="quick-actions">
+                <div class="action-btn action-shop" onclick="showView('shop')">
+                    <div class="action-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="action-text">Shop</div>
+                    <div class="action-subtext">Buy Items</div>
+                </div>
+                <div class="action-btn action-earn" onclick="showView('earn')">
+                    <div class="action-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="action-text">Earn</div>
+                    <div class="action-subtext">Watch & Earn</div>
+                </div>
+                <div class="action-btn action-history" onclick="showView('history')">
+                    <div class="action-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="action-text">History</div>
+                    <div class="action-subtext">Transactions</div>
+                </div>
+                <div class="action-btn action-support" onclick="window.open('https://t.me/shadinislam01', '_blank')">
+                    <div class="action-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="action-text">Support</div>
+                    <div class="action-subtext">24/7 Help</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Shop View -->
+        <div id="shop-view" class="hidden">
+            <div class="section-header">
+                <div>
+                    <div class="section-title">Shop</div>
+                    <div class="section-subtitle">Buy premium accounts & services</div>
+                </div>
+                <div class="badge" id="shop-count">0 Items</div>
+            </div>
+            
+            <div class="shop-items-grid" id="shop-items">
+                <!-- Items will load here -->
+            </div>
+        </div>
+        
+        <!-- Earn View -->
+        <div id="earn-view" class="hidden">
+            <div class="section-header">
+                <div>
+                    <div class="section-title">Earn Credits</div>
+                    <div class="section-subtitle">Watch videos & earn instantly</div>
+                </div>
+                <div class="badge" id="total-earn-today">0 Today</div>
+            </div>
+            
+            <div class="ads-container">
+                <!-- Ads Description -->
+                <div class="ad-card" style="background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1));">
+                    <div class="ad-card-header">
+                        <div class="ad-icon" style="background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(139,92,246,0.2)); color: var(--primary);">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="ad-title-container">
+                            <div class="ad-title">How to Earn Credits</div>
+                            <div class="ad-subtitle">Click buttons below to watch ads</div>
+                        </div>
+                    </div>
+                    
+                    <div class="ad-description">
+                        • Click any ad button below to watch ads<br>
+                        • Earn credits instantly after watching<br>
+                        • Each ad type has daily limits<br>
+                        • Come back daily for more credits
+                    </div>
+                </div>
+                
+                <!-- Popup Ads (Zone 10422420) -->
+                <div class="ad-card ad-popup">
+                    <div class="ad-card-header">
+                        <div class="ad-icon">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                        <div class="ad-title-container">
+                            <div class="ad-title">Popup Ads</div>
+                            <div class="ad-subtitle">Quick popup • Fast earnings</div>
+                        </div>
+                        <div class="ad-reward-badge">+4 Credits</div>
+                    </div>
+                    
+                    <div class="ad-description">
+                        Simple popup ads that open in new window. Close after viewing to earn credits!
+                    </div>
+                    
+                    <div class="ad-progress">
+                        <div class="progress-header">
+                            <div class="progress-label">Daily Progress</div>
+                            <div class="progress-value" id="popup-count">0/60</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="popup-progress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <button class="ad-button" onclick="showPopupAd()" id="popup-button">
+                        <i class="fas fa-external-link-alt"></i>
+                        <span>Watch Popup Ad</span>
+                    </button>
+                </div>
+                
+                <!-- Video Ads (Zone 10422426) -->
+                <div class="ad-card ad-video">
+                    <div class="ad-card-header">
+                        <div class="ad-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="ad-title-container">
+                            <div class="ad-title">Video Ads</div>
+                            <div class="ad-subtitle">Short videos • Higher rewards</div>
+                        </div>
+                        <div class="ad-reward-badge">+6 Credits</div>
+                    </div>
+                    
+                    <div class="ad-description">
+                        Watch short video ads and earn credits instantly. Videos auto-play for convenience.
+                    </div>
+                    
+                    <div class="ad-progress">
+                        <div class="progress-header">
+                            <div class="progress-label">Daily Progress</div>
+                            <div class="progress-value" id="video-count">0/40</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="video-progress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <button class="ad-button" onclick="showVideoAd()" id="video-button">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Watch Video Ad</span>
+                    </button>
+                </div>
+                
+                <!-- Interstitial Ads (Zone 10422422) -->
+                <div class="ad-card ad-premium">
+                    <div class="ad-card-header">
+                        <div class="ad-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="ad-title-container">
+                            <div class="ad-title">Premium Ads</div>
+                            <div class="ad-subtitle">Full screen • Best rewards</div>
+                        </div>
+                        <div class="ad-reward-badge">+8 Credits</div>
+                    </div>
+                    
+                    <div class="ad-description">
+                        Premium full-screen interstitial ads. Highest paying ads for maximum earnings!
+                    </div>
+                    
+                    <div class="ad-progress">
+                        <div class="progress-header">
+                            <div class="progress-label">Daily Progress</div>
+                            <div class="progress-value" id="interstitial-count">0/30</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="interstitial-progress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <button class="ad-button" onclick="showInterstitialAd()" id="interstitial-button">
+                        <i class="fas fa-crown"></i>
+                        <span>Watch Premium Ad</span>
+                    </button>
+                </div>
+                
+                <!-- Banner Ads (Zone 10422421) -->
+                <div class="ad-card ad-banner">
+                    <div class="ad-card-header">
+                        <div class="ad-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="ad-title-container">
+                            <div class="ad-title">Banner Ads</div>
+                            <div class="ad-subtitle">Quick view • Instant credits</div>
+                        </div>
+                        <div class="ad-reward-badge">+3 Credits</div>
+                    </div>
+                    
+                    <div class="ad-description">
+                        Simple banner ads that give instant rewards. Just view and earn credits!
+                    </div>
+                    
+                    <div class="ad-progress">
+                        <div class="progress-header">
+                            <div class="progress-label">Daily Progress</div>
+                            <div class="progress-value" id="banner-count">0/100</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="banner-progress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <button class="ad-button" onclick="showBannerAd()" id="banner-button">
+                        <i class="fas fa-bolt"></i>
+                        <span>View Banner Ad</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- History View -->
+        <div id="history-view" class="hidden">
+            <div class="section-header">
+                <div>
+                    <div class="section-title">History</div>
+                    <div class="section-subtitle">Your transaction history</div>
+                </div>
+                <div class="badge" id="history-count">0 Items</div>
+            </div>
+            
+            <div class="shop-items-grid" id="history-items">
+                <!-- History will load here -->
+            </div>
+        </div>
+        
+        <!-- Purchases View -->
+        <div id="purchases-view" class="hidden">
+            <div class="section-header">
+                <div>
+                    <div class="section-title">My Purchases</div>
+                    <div class="section-subtitle">Your purchased items</div>
+                </div>
+                <div class="badge" id="purchases-count">0 Items</div>
+            </div>
+            
+            <div class="shop-items-grid" id="purchases-items">
+                <!-- Purchased items will load here -->
+            </div>
+        </div>
+        
+        <!-- Admin View (Hidden by default) -->
+        <div id="admin-view" class="hidden">
+            <div class="section-header">
+                <div>
+                    <div class="section-title">👑 Admin Control Panel</div>
+                    <div class="section-subtitle">Complete system management</div>
+                </div>
+                <div class="badge">ADMIN</div>
+            </div>
+            
+            <div class="admin-panel">
+                <!-- User Management -->
+                <div class="admin-section">
+                    <h3 style="margin-bottom: var(--space-md);">👥 User Management</h3>
+                    <div class="admin-grid">
+                        <div class="admin-card" onclick="showUserManagement()">
+                            <i class="fas fa-users" style="font-size: 24px; margin-bottom: 8px; color: #3b82f6;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px;">Manage Users</div>
+                            <div style="font-size: 12px; color: var(--gray);">Add/Remove credits, Reset ads</div>
+                        </div>
+                        
+                        <div class="admin-card" onclick="showBulkOperations()">
+                            <i class="fas fa-cogs" style="font-size: 24px; margin-bottom: 8px; color: #10b981;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px;">Bulk Operations</div>
+                            <div style="font-size: 12px; color: var(--gray);">Mass credit add, Reset all</div>
+                        </div>
+                        
+                        <div class="admin-card" onclick="showUserSearch()">
+                            <i class="fas fa-search" style="font-size: 24px; margin-bottom: 8px; color: #8b5cf6;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px;">Search Users</div>
+                            <div style="font-size: 12px; color: var(--gray);">Find users by ID/Name</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item Management -->
+                <div class="admin-section">
+                    <h3 style="margin-bottom: var(--space-md);">🛍️ Item Management</h3>
+                    <div class="admin-grid">
+                        <div class="admin-card" onclick="showItemManagement()">
+                            <i class="fas fa-box" style="font-size: 24px; margin-bottom: 8px; color: #f59e0b;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px;">Manage Items</div>
+                            <div style="font-size: 12px; color: var(--gray);">Add/Edit/Delete items</div>
+                        </div>
+                        
+                        <div class="admin-card" onclick="showCreateItem()">
+                            <i class="fas fa-plus-circle" style="font-size: 24px; margin-bottom: 8px; color: #ef4444;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px;">Create Item</div>
+                            <div style="font-size: 12px; color: var(--gray);">Add new shop item</div>
+                        </div>
+                        
+                        <div class="admin-card" onclick="showStockManagement()">
+                            <i class="fas fa-warehouse" style="font-size: 24px; margin-bottom: 8px; color: #0ea5e9;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px;">Stock Control</div>
+                            <div style="font-size: 12px; color: var(--gray);">Update stock levels</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ad System Control -->
+                <div class="admin-section">
+                    <h3 style="margin-bottom: var(--space-md);">📺 Ad System Control</h3>
+                    <div class="admin-grid">
+                        <div class="admin-card" onclick="showAdSettings()">
+                            <i class="fas fa-sliders-h" style="font-size: 24px; margin-bottom: 8px; color: #3b82f6;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px;">Ad Settings</div>
+                            <div style="font-size: 12px; color: var(--gray);">Configure ad rewards</div>
+                        </div>
+                        
+                        <div class="admin-card" onclick="resetAllAdLimits()">
+                            <i class="fas fa-redo" style="font-size: 24px; margin-bottom: 8px; color: #10b981;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px;">Reset All Limits</div>
+                            <div style="font-size: 12px; color: var(--gray);">Reset daily ad limits</div>
+                        </div>
+                        
+                        <div class="admin-card" onclick="showAdStats()">
+                            <i class="fas fa-chart-bar" style="font-size: 24px; margin-bottom: 8px; color: #8b5cf6;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px;">Ad Statistics</div>
+                            <div style="font-size: 12px; color: var(--gray);">View ad performance</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Tools -->
+                <div class="admin-section">
+                    <h3 style="margin-bottom: var(--space-md);">🔧 System Tools</h3>
+                    <div class="admin-grid">
+                        <div class="admin-card" onclick="showSystemConfig()">
+                            <i class="fas fa-cog" style="font-size: 24px; margin-bottom: 8px; color: #f59e0b;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px;">System Config</div>
+                            <div style="font-size: 12px; color: var(--gray);">Edit all settings</div>
+                        </div>
+                        
+                        <div class="admin-card" onclick="backupDatabase()">
+                            <i class="fas fa-database" style="font-size: 24px; margin-bottom: 8px; color: #ef4444;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px;">Backup Data</div>
+                            <div style="font-size: 12px; color: var(--gray);">Export all data</div>
+                        </div>
+                        
+                        <div class="admin-card" onclick="showSQLTool()">
+                            <i class="fas fa-code" style="font-size: 24px; margin-bottom: 8px; color: #0ea5e9;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px;">SQL Tool</div>
+                            <div style="font-size: 12px; color: var(--gray);">Execute SQL queries</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Danger Zone -->
+                <div class="admin-section" style="border: 2px solid #ef4444; border-radius: 12px; padding: var(--space-md);">
+                    <h3 style="margin-bottom: var(--space-md); color: #ef4444;">⚠️ Danger Zone</h3>
+                    <div style="color: #fca5a5; font-size: 12px; margin-bottom: var(--space-md);">
+                        These actions cannot be undone. Use with extreme caution.
+                    </div>
+                    <div class="admin-grid">
+                        <div class="admin-card" onclick="resetAllCredits()" style="border-color: #ef4444; background: rgba(239,68,68,0.1);">
+                            <i class="fas fa-coins" style="font-size: 24px; margin-bottom: 8px; color: #ef4444;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px; color: #ef4444;">Reset All Credits</div>
+                            <div style="font-size: 12px; color: #fca5a5;">Set all user credits to 0</div>
+                        </div>
+                        
+                        <div class="admin-card" onclick="clearAllHistory()" style="border-color: #ef4444; background: rgba(239,68,68,0.1);">
+                            <i class="fas fa-history" style="font-size: 24px; margin-bottom: 8px; color: #ef4444;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px; color: #ef4444;">Clear All History</div>
+                            <div style="font-size: 12px; color: #fca5a5;">Delete all transactions</div>
+                        </div>
+                        
+                        <div class="admin-card" onclick="showRestartSystem()" style="border-color: #ef4444; background: rgba(239,68,68,0.1);">
+                            <i class="fas fa-power-off" style="font-size: 24px; margin-bottom: 8px; color: #ef4444;"></i>
+                            <div style="font-weight: 700; margin-bottom: 4px; color: #ef4444;">Restart System</div>
+                            <div style="font-size: 12px; color: #fca5a5;">Restart application</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showView('dashboard')" id="nav-dashboard">
+            <i class="fas fa-home nav-icon"></i>
+            <div class="nav-label">Home</div>
+        </div>
+        <div class="nav-item" onclick="showView('shop')" id="nav-shop">
+            <i class="fas fa-store nav-icon"></i>
+            <div class="nav-label">Shop</div>
+        </div>
+        <div class="nav-item" onclick="showView('earn')" id="nav-earn">
+            <i class="fas fa-ad nav-icon"></i>
+            <div class="nav-label">Earn</div>
+        </div>
+        <div class="nav-item" onclick="showView('history')" id="nav-history">
+            <i class="fas fa-history nav-icon"></i>
+            <div class="nav-label">History</div>
+        </div>
+        <div class="nav-item" onclick="showView('purchases')" id="nav-purchases">
+            <i class="fas fa-shopping-bag nav-icon"></i>
+            <div class="nav-label">My Items</div>
+        </div>
+        <div class="nav-item" onclick="showView('admin')" id="nav-admin" style="display: none;">
+            <i class="fas fa-crown nav-icon"></i>
+            <div class="nav-label">Admin</div>
+        </div>
+    </div>
+    
+    <!-- Modals -->
+    <div class="modal" id="unlock-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">🎉 Item Unlocked!</div>
+                <div class="modal-close" onclick="hideModal('unlock-modal')">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="detail-box" id="item-content">Loading content...</div>
+                <div class="info-grid">
+                    <div class="info-row">
+                        <span>Item Name:</span>
+                        <span id="item-name">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span>Price Paid:</span>
+                        <span id="item-price">- credits</span>
+                    </div>
+                    <div class="info-row">
+                        <span>IP Address:</span>
+                        <span id="item-ip">Global</span>
+                    </div>
+                    <div class="info-row">
+                        <span>Website:</span>
+                        <span id="item-link">N/A</span>
+                    </div>
+                    <div class="info-row" id="purchase-date-row" style="display: none;">
+                        <span>Purchased On:</span>
+                        <span id="purchase-date">-</span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn btn-success" onclick="copyItemDetails()">
+                        <i class="fas fa-copy"></i> Copy Details
+                    </button>
+                    <button class="modal-btn btn-primary" onclick="hideModal('unlock-modal')">
+                        <i class="fas fa-check"></i> Done
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Admin Modals -->
+    <div class="modal" id="admin-user-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">👥 User Management</div>
+                <div class="modal-close" onclick="hideModal('admin-user-modal')">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-body">
+                <input type="number" class="admin-input" id="admin-user-id" placeholder="Enter User ID">
+                <input type="number" class="admin-input" id="admin-credit-amount" placeholder="Credit Amount">
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); margin-top: var(--space-md);">
+                    <button class="retry-btn" onclick="adminAddCredits()">
+                        <i class="fas fa-plus"></i> Add Credits
+                    </button>
+                    <button class="retry-btn" onclick="adminRemoveCredits()" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                        <i class="fas fa-minus"></i> Remove Credits
+                    </button>
+                    <button class="retry-btn" onclick="adminResetUserAds()" style="background: linear-gradient(135deg, #f59e0b, #d97706); grid-column: span 2;">
+                        <i class="fas fa-redo"></i> Reset User Ads
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check"></i>
+        <span id="toast-message">Success!</span>
+    </div>
+    
+    <!-- Scripts -->
+    <script>
+        // Global Variables
+        let userId = null;
+        let userData = null;
+        let isAdmin = false;
+        let currentCooldown = 0;
+        let cooldownTimer = null;
+        
+        // Ad Networks Configuration
+        const AD_NETWORKS = {
+            popup: { 
+                zone: '10422420', 
+                reward: 4, 
+                dailyLimit: 60,
+                script: 'https://al5sm.com/tag.min.js'
+            },
+            video: { 
+                zone: '10422426', 
+                reward: 6, 
+                dailyLimit: 40,
+                script: 'https://nap5k.com/tag.min.js'
+            },
+            interstitial: { 
+                zone: '10422422', 
+                reward: 8, 
+                dailyLimit: 30,
+                script: 'https://al5sm.com/tag.min.js'
+            },
+            banner: { 
+                zone: '10422421', 
+                reward: 3, 
+                dailyLimit: 100,
+                script: 'https://3nbf4.com/act/files/tag.min.js'
+            }
+        };
+        
+        // Load ad networks automatically
+        function loadAdNetworks() {
+            console.log('Loading ad networks...');
+            
+            // Load additional ad networks
+            setTimeout(() => {
+                // Zone 10422429
+                const script1 = document.createElement('script');
+                script1.src = 'https://3nbf4.com/act/files/tag.min.js?z=10422429';
+                script1.dataset.cfasync = "false";
+                script1.async = true;
+                document.head.appendChild(script1);
+                
+                // Zone 10422426 (Video)
+                const script2 = document.createElement('script');
+                script2.textContent = `
+                    (function(s){
+                        s.dataset.zone='10422426';
+                        s.src='https://nap5k.com/tag.min.js';
+                        s.async = true;
+                    })(document.createElement('script'));
+                `;
+                document.head.appendChild(script2);
+                
+                // Zone 10422422 (Interstitial)
+                const script3 = document.createElement('script');
+                script3.textContent = `
+                    (function(s){
+                        s.dataset.zone='10422422';
+                        s.src='https://al5sm.com/tag.min.js';
+                        s.async = true;
+                    })(document.createElement('script'));
+                `;
+                document.head.appendChild(script3);
+                
+                // Zone 10422420 (Popup)
+                const script4 = document.createElement('script');
+                script4.textContent = `
+                    (function(s){
+                        s.dataset.zone='10422420';
+                        s.src='https://al5sm.com/tag.min.js';
+                        s.async = true;
+                    })(document.createElement('script'));
+                `;
+                document.head.appendChild(script4);
+                
+                console.log('✅ All ad networks loaded');
+                
+            }, 1000);
+        }
+        
+        // Ad Functions
+        function showPopupAd() {
+            if (checkAdLimit('popup')) {
+                showAdInFrame('https://al5sm.com/?zoneid=10422420', 'popup');
+            }
+        }
+        
+        function showVideoAd() {
+            if (checkAdLimit('video')) {
+                showAdInFrame('https://nap5k.com/?zoneid=10422426', 'video');
+            }
+        }
+        
+        function showInterstitialAd() {
+            if (checkAdLimit('interstitial')) {
+                showAdInFrame('https://al5sm.com/?zoneid=10422422', 'interstitial');
+            }
+        }
+        
+        function showBannerAd() {
+            if (checkAdLimit('banner')) {
+                showAdInFrame('https://3nbf4.com/?zoneid=10422421', 'banner');
+            }
+        }
+        
+        function showAdInFrame(url, type) {
+            const adFrame = document.getElementById('ad-frame');
+            const adContainer = document.getElementById('ad-frame-container');
+            
+            if (adFrame && adContainer) {
+                adFrame.src = url;
+                adContainer.style.display = 'block';
+                
+                // Auto-close after 8 seconds and give reward
+                setTimeout(() => {
+                    closeAdFrame();
+                    processAdReward(type);
+                }, 8000);
+            }
+        }
+        
+        function closeAdFrame() {
+            const adContainer = document.getElementById('ad-frame-container');
+            const adFrame = document.getElementById('ad-frame');
+            
+            if (adContainer) {
+                adContainer.style.display = 'none';
+            }
+            if (adFrame) {
+                adFrame.src = 'about:blank';
+            }
+        }
+        
+        function checkAdLimit(type) {
+            if (!userData) {
+                showToast('Please wait, loading user data...', 'warning');
+                return false;
+            }
+            
+            const config = AD_NETWORKS[type];
+            const currentCount = userData[`cnt_${type}`] || 0;
+            
+            if (currentCount >= config.dailyLimit) {
+                showToast(`Daily limit reached for ${type} ads`, 'warning');
+                return false;
+            }
+            
+            if (currentCooldown > 0) {
+                showToast(`⏳ Please wait ${currentCooldown} seconds`, 'warning');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        async function processAdReward(type) {
+            try {
+                const config = AD_NETWORKS[type];
+                const response = await fetch('/api/earn', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        uid: userId,
+                        ad_type: type,
+                        reward: config.reward
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Start cooldown (5 seconds between ads)
+                    startCooldown(5);
+                    
+                    // Update ad count in UI
+                    updateAdCount(type);
+                    
+                    // Reload user data
+                    await loadUserData();
+                    
+                    showToast(`✅ +${config.reward} credits earned!`, 'success');
+                } else {
+                    showToast(result.message || 'Failed to earn', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Ad reward error:', error);
+                showToast('Failed to process ad reward', 'error');
+            }
+        }
+        
+        function updateAdCount(type) {
+            if (!userData) userData = {};
+            if (!userData[`cnt_${type}`]) userData[`cnt_${type}`] = 0;
+            userData[`cnt_${type}`]++;
+            
+            // Update UI
+            const config = AD_NETWORKS[type];
+            const currentCount = userData[`cnt_${type}`];
+            const percentage = (currentCount / config.dailyLimit) * 100;
+            
+            document.getElementById(`${type}-count`).textContent = `${currentCount}/${config.dailyLimit}`;
+            document.getElementById(`${type}-progress`).style.width = `${percentage}%`;
+            
+            // Disable button if limit reached
+            if (currentCount >= config.dailyLimit) {
+                document.getElementById(`${type}-button`).disabled = true;
+                document.getElementById(`${type}-button`).innerHTML = '<i class="fas fa-ban"></i> Limit Reached';
+            }
+            
+            // Update total earnings today
+            updateTotalEarnings();
+        }
+        
+        function updateTotalEarnings() {
+            if (!userData) return;
+            
+            let total = 0;
+            for (const [type, config] of Object.entries(AD_NETWORKS)) {
+                const count = userData[`cnt_${type}`] || 0;
+                total += count * config.reward;
+            }
+            
+            document.getElementById('total-earn-today').textContent = `${total} Today`;
+        }
+        
+        function startCooldown(seconds) {
+            currentCooldown = seconds;
+            
+            if (cooldownTimer) {
+                clearInterval(cooldownTimer);
+            }
+            
+            cooldownTimer = setInterval(() => {
+                currentCooldown--;
+                
+                if (currentCooldown <= 0) {
+                    clearInterval(cooldownTimer);
+                    currentCooldown = 0;
+                }
+            }, 1000);
+        }
+        
+        // App Initialization
+        async function init() {
+            updateLoadingText('Initializing...');
+            
+            // Get user ID from URL or Telegram
+            const urlParams = new URLSearchParams(window.location.search);
+            userId = urlParams.get('tg_user_id');
+            
+            if (!userId) {
+                // Try Telegram Web App
+                if (window.Telegram && window.Telegram.WebApp) {
+                    const tg = Telegram.WebApp;
+                    tg.ready();
+                    tg.expand();
+                    
+                    if (tg.initDataUnsafe?.user?.id) {
+                        userId = tg.initDataUnsafe.user.id;
+                        document.getElementById('user-name').textContent = tg.initDataUnsafe.user.first_name || 'User';
+                        document.getElementById('user-handle').textContent = tg.initDataUnsafe.user.username ? `@${tg.initDataUnsafe.user.username}` : '';
+                    }
+                }
+            }
+            
+            if (!userId) {
+                // Demo mode
+                userId = 123456;
+                document.getElementById('user-name').textContent = 'Demo User';
+                document.getElementById('user-handle').textContent = '@demo';
+            }
+            
+            document.getElementById('user-telegram-id').textContent = `ID: ${userId}`;
+            
+            // Load user data
+            await loadUserData();
+            
+            // Load ad networks
+            loadAdNetworks();
+            
+            // Hide loading
+            setTimeout(() => {
+                document.getElementById('loading-overlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-overlay').classList.add('hidden');
+                    showToast('✨ Welcome to Own Bazar!', 'success');
+                }, 300);
+            }, 1000);
+        }
+        
+        async function loadUserData() {
+            try {
+                const response = await fetch(`/api/user/${userId}`);
+                userData = await response.json();
+                
+                // Update UI
+                document.getElementById('user-balance').textContent = userData.credits;
+                document.getElementById('total-earned').textContent = userData.total_earned;
+                document.getElementById('total-spent').textContent = userData.total_spent;
+                document.getElementById('total-ads').textContent = userData.ads_today;
+                document.getElementById('total-purchases').textContent = userData.purchases;
+                
+                // Update ad counts
+                updateAllAdCounts();
+                
+                // Check if admin
+                isAdmin = userData.is_admin === true || userData.is_admin === 1;
+                if (isAdmin) {
+                    document.getElementById('admin-badge').classList.remove('hidden');
+                    document.getElementById('nav-admin').style.display = 'flex';
+                }
+                
+            } catch (error) {
+                console.error('Error loading user:', error);
+                showToast('Failed to load user data', 'error');
+            }
+        }
+        
+        function updateAllAdCounts() {
+            if (!userData) return;
+            
+            for (const type of Object.keys(AD_NETWORKS)) {
+                const config = AD_NETWORKS[type];
+                const currentCount = userData[`cnt_${type}`] || 0;
+                const percentage = Math.min((currentCount / config.dailyLimit) * 100, 100);
+                
+                const countEl = document.getElementById(`${type}-count`);
+                const progressEl = document.getElementById(`${type}-progress`);
+                const buttonEl = document.getElementById(`${type}-button`);
+                
+                if (countEl) countEl.textContent = `${currentCount}/${config.dailyLimit}`;
+                if (progressEl) progressEl.style.width = `${percentage}%`;
+                
+                // Disable button if limit reached
+                if (buttonEl && currentCount >= config.dailyLimit) {
+                    buttonEl.disabled = true;
+                    buttonEl.innerHTML = '<i class="fas fa-ban"></i> Limit Reached';
+                }
+            }
+            
+            updateTotalEarnings();
+        }
+        
+        // Shop Functions
+        async function loadShopItems() {
+            try {
+                const response = await fetch('/api/items');
+                const items = await response.json();
+                
+                const container = document.getElementById('shop-items');
+                if (!container) return;
+                
+                if (items.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--gray);">No items available</div>';
+                    document.getElementById('shop-count').textContent = '0 Items';
+                    return;
+                }
+                
+                let html = '';
+                items.forEach(item => {
+                    const canBuy = userData && userData.credits >= item.price;
+                    const stockStatus = item.stock > 0 ? 'In Stock' : 'Out of Stock';
+                    const isOutOfStock = item.stock <= 0;
+                    
+                    html += `
+                        <div class="shop-item">
+                            <div class="shop-item-header">
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-price">
+                                    <i class="fas fa-coins"></i> ${item.price}
+                                </div>
+                            </div>
+                            <div class="item-meta">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-tag"></i> ${item.category}
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-shopping-cart"></i> ${item.sold} sold
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-box"></i> ${stockStatus}
+                                </div>
+                            </div>
+                            <button class="buy-button" onclick="buyItem(${item.id})" ${canBuy && !isOutOfStock ? '' : 'disabled'}>
+                                <i class="fas fa-unlock"></i>
+                                ${isOutOfStock ? 'Out of Stock' : (canBuy ? 'Unlock Item' : 'Insufficient Credits')}
+                            </button>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+                document.getElementById('shop-count').textContent = `${items.length} Items`;
+                
+            } catch (error) {
+                console.error('Error loading items:', error);
+                showToast('Failed to load items', 'error');
+            }
+        }
+        
+        async function buyItem(itemId) {
+            if (!confirm('Are you sure you want to buy this item?')) return;
+            
+            try {
+                const response = await fetch('/api/buy', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        uid: userId,
+                        item_id: itemId
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showToast('✅ Purchase successful!', 'success');
+                    
+                    // Show item details
+                    const item = result.item;
+                    document.getElementById('item-content').textContent = item.content;
+                    document.getElementById('item-name').textContent = item.name;
+                    document.getElementById('item-price').textContent = `${item.price} credits`;
+                    document.getElementById('item-ip').textContent = item.ip;
+                    document.getElementById('item-link').textContent = item.link;
+                    document.getElementById('purchase-date-row').style.display = 'none';
+                    
+                    showModal('unlock-modal');
+                    
+                    // Reload user data
+                    await loadUserData();
+                    await loadShopItems();
+                    
+                } else {
+                    showToast(result.message || 'Purchase failed', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Buy error:', error);
+                showToast('Failed to process purchase', 'error');
+            }
+        }
+        
+        // History Functions
+        async function loadHistory() {
+            try {
+                const response = await fetch(`/api/history/${userId}`);
+                const history = await response.json();
+                
+                const container = document.getElementById('history-items');
+                if (!container) return;
+                
+                if (history.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--gray);">No history yet</div>';
+                    document.getElementById('history-count').textContent = '0 Items';
+                    return;
+                }
+                
+                let html = '';
+                history.forEach(item => {
+                    const isEarn = item.type === 'earn';
+                    const icon = isEarn ? 'fas fa-plus-circle' : 'fas fa-shopping-cart';
+                    const color = isEarn ? '#10b981' : '#f59e0b';
+                    const sign = isEarn ? '+' : '-';
+                    
+                    // If it's a purchased item, show a button to view details again
+                    const isPurchased = item.type === 'spend';
+                    
+                    html += `
+                        <div class="shop-item" style="border-left: 4px solid ${color}">
+                            <div class="shop-item-header">
+                                <div class="item-name" style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="${icon}" style="color: ${color}"></i>
+                                    ${item.item_name}
+                                </div>
+                                <div style="color: ${color}; font-weight: 700;">
+                                    ${sign}${item.price}
+                                </div>
+                            </div>
+                            <div class="item-meta">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="far fa-calendar"></i> ${item.date}
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-exchange-alt"></i> ${isEarn ? 'Earned' : 'Purchased'}
+                                </div>
+                                ${item.item_category ? `<div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-tag"></i> ${item.item_category}
+                                </div>` : ''}
+                            </div>
+                            
+                            ${isPurchased ? `
+                                <div style="margin-top: var(--space-md);">
+                                    <button class="buy-button" onclick="showPurchasedItemFromHistory(${item.id})" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                                        <i class="fas fa-eye"></i> View Details
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+                document.getElementById('history-count').textContent = `${history.length} Items`;
+                
+            } catch (error) {
+                console.error('Error loading history:', error);
+                showToast('Failed to load history', 'error');
+            }
+        }
+        
+        // Purchases Functions
+        async function loadPurchasedItems() {
+            try {
+                const response = await fetch(`/api/purchases/${userId}`);
+                const result = await response.json();
+                
+                const container = document.getElementById('purchases-items');
+                if (!container) return;
+                
+                if (!result.success || result.items.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--gray);">No purchases yet</div>';
+                    document.getElementById('purchases-count').textContent = '0 Items';
+                    return;
+                }
+                
+                let html = '';
+                result.items.forEach(item => {
+                    html += `
+                        <div class="shop-item" style="border-left: 4px solid #3b82f6;">
+                            <div class="shop-item-header">
+                                <div class="item-name" style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-shopping-bag" style="color: #3b82f6;"></i>
+                                    ${item.item_name}
+                                </div>
+                                <div style="color: #f59e0b; font-weight: 700;">
+                                    ${item.price} credits
+                                </div>
+                            </div>
+                            
+                            <div class="item-meta">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="far fa-calendar"></i> ${item.date}
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-tag"></i> ${item.item_category || 'General'}
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: var(--space-md); display: flex; gap: var(--space-sm);">
+                                <button class="buy-button" onclick="showPurchasedItemFromHistory(${item.id})" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); flex: 1;">
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+                                <button class="buy-button" onclick="copyItemContent('${escapeHtml(item.item_content || '')}')" style="background: linear-gradient(135deg, #10b981, #059669); flex: 1;">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+                document.getElementById('purchases-count').textContent = `${result.items.length} Items`;
+                
+            } catch (error) {
+                console.error('Error loading purchases:', error);
+                showToast('Failed to load purchases', 'error');
+            }
+        }
+        
+        // Show purchased item from history
+        async function showPurchasedItemFromHistory(historyId) {
+            try {
+                const response = await fetch(`/api/history/item/${historyId}?user_id=${userId}`);
+                const result = await response.json();
+                
+                if (result.success && result.item) {
+                    const item = result.item;
+                    
+                    // Show item details in modal
+                    document.getElementById('item-content').textContent = item.item_content || 'No content available';
+                    document.getElementById('item-name').textContent = item.item_name;
+                    document.getElementById('item-price').textContent = `${item.price} credits`;
+                    document.getElementById('item-ip').textContent = item.item_ip || 'Global';
+                    document.getElementById('item-link').textContent = item.item_link || 'N/A';
+                    document.getElementById('purchase-date').textContent = item.date || new Date().toLocaleDateString();
+                    document.getElementById('purchase-date-row').style.display = 'flex';
+                    
+                    showModal('unlock-modal');
+                } else {
+                    showToast('Failed to load item details', 'error');
+                }
+            } catch (error) {
+                console.error('Error loading purchased item:', error);
+                showToast('Failed to load item details', 'error');
+            }
+        }
+        
+        // Copy item content to clipboard
+        function copyItemContent(content) {
+            if (!content || content === 'No content available') {
+                showToast('No content to copy', 'warning');
+                return;
+            }
+            
+            // Unescape HTML entities
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            const plainText = tempDiv.textContent || tempDiv.innerText || '';
+            
+            navigator.clipboard.writeText(plainText).then(() => {
+                showToast('✅ Copied to clipboard!', 'success');
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                showToast('Failed to copy', 'error');
+            });
+        }
+        
+        // View Management
+        function showView(viewName) {
+            // Hide all views
+            ['dashboard', 'shop', 'earn', 'history', 'purchases', 'admin'].forEach(view => {
+                const viewEl = document.getElementById(`${view}-view`);
+                const navEl = document.getElementById(`nav-${view}`);
+                
+                if (viewEl) viewEl.classList.add('hidden');
+                if (navEl) navEl.classList.remove('active');
+            });
+            
+            // Show selected view
+            const selectedView = document.getElementById(`${viewName}-view`);
+            const selectedNav = document.getElementById(`nav-${viewName}`);
+            
+            if (selectedView) selectedView.classList.remove('hidden');
+            if (selectedNav) selectedNav.classList.add('active');
+            
+            // Load data for view
+            switch(viewName) {
+                case 'shop':
+                    loadShopItems();
+                    break;
+                case 'earn':
+                    updateAllAdCounts();
+                    break;
+                case 'history':
+                    loadHistory();
+                    break;
+                case 'purchases':
+                    loadPurchasedItems();
+                    break;
+                case 'admin':
+                    if (!isAdmin) {
+                        adminLogin();
+                        showView('dashboard');
+                        return;
+                    }
+                    break;
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Modal Functions
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function hideModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        function copyItemDetails() {
+            const content = document.getElementById('item-content').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                showToast('Copied to clipboard!', 'success');
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                showToast('Failed to copy', 'error');
+            });
+        }
+        
+        // Toast Functions
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const messageEl = document.getElementById('toast-message');
+            const icon = toast.querySelector('i');
+            
+            if (!toast || !messageEl) return;
+            
+            messageEl.textContent = message;
+            
+            // Update icon and style
+            toast.className = 'toast show';
+            if (type === 'success') {
+                icon.className = 'fas fa-check';
+                toast.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-circle';
+                toast.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+            } else if (type === 'warning') {
+                icon.className = 'fas fa-exclamation-triangle';
+                toast.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+            } else {
+                icon.className = 'fas fa-info-circle';
+                toast.style.background = 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
+            }
+            
+            // Auto hide
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Utility Functions
+        function updateLoadingText(text) {
+            const element = document.getElementById('loading-subtext');
+            if (element) {
+                element.textContent = text;
+            }
+        }
+        
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+        
+        async function refreshData() {
+            showToast('Refreshing...', 'info');
+            await loadUserData();
+            showToast('Refreshed!', 'success');
+        }
+        
+        // Admin Functions
+        async function adminLogin() {
+            const adminId = prompt('Enter your Admin ID:');
+            const adminPassword = prompt('Enter Admin Password:');
+            
+            if (!adminId || !adminPassword) {
+                showToast('Credentials required', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: adminId,
+                        admin_password: adminPassword
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showToast('✅ Admin login successful!', 'success');
+                    isAdmin = true;
+                    document.getElementById('admin-badge').classList.remove('hidden');
+                    document.getElementById('nav-admin').style.display = 'flex';
+                    showView('admin');
+                } else {
+                    showToast(result.message || 'Login failed', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Admin login error:', error);
+                showToast('Login failed', 'error');
+            }
+        }
+        
+        function showUserManagement() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            showModal('admin-user-modal');
+        }
+        
+        async function adminAddCredits() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            const targetUserId = document.getElementById('admin-user-id').value;
+            const amount = document.getElementById('admin-credit-amount').value;
+            
+            if (!targetUserId || !amount) {
+                showToast('Please enter User ID and amount', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'add_credits',
+                        user_id: parseInt(targetUserId),
+                        amount: parseInt(amount)
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showToast(`✅ Added ${amount} credits to user ${targetUserId}`, 'success');
+                    hideModal('admin-user-modal');
+                } else {
+                    showToast(result.message || 'Failed to add credits', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Admin add credits error:', error);
+                showToast('Failed to add credits', 'error');
+            }
+        }
+        
+        async function adminRemoveCredits() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            const targetUserId = document.getElementById('admin-user-id').value;
+            const amount = document.getElementById('admin-credit-amount').value;
+            
+            if (!targetUserId || !amount) {
+                showToast('Please enter User ID and amount', 'error');
+                return;
+            }
+            
+            if (!confirm(`Remove ${amount} credits from user ${targetUserId}?`)) return;
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'remove_credits',
+                        user_id: parseInt(targetUserId),
+                        amount: parseInt(amount)
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showToast(`✅ Removed ${amount} credits from user ${targetUserId}`, 'success');
+                    hideModal('admin-user-modal');
+                } else {
+                    showToast(result.message || 'Failed to remove credits', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Admin remove credits error:', error);
+                showToast('Failed to remove credits', 'error');
+            }
+        }
+        
+        async function adminResetUserAds() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            const targetUserId = document.getElementById('admin-user-id').value;
+            
+            if (!targetUserId) {
+                showToast('Please enter User ID', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'reset_user_ads',
+                        user_id: parseInt(targetUserId)
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showToast(`✅ Reset ads for user ${targetUserId}`, 'success');
+                    hideModal('admin-user-modal');
+                } else {
+                    showToast(result.message || 'Failed to reset ads', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Admin reset ads error:', error);
+                showToast('Failed to reset ads', 'error');
+            }
+        }
+        
+        async function resetAllAdLimits() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            if (!confirm('Reset all user ad limits? This will reset daily counts for all users.')) return;
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'reset_all_ads'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showToast('✅ All ad limits reset successfully', 'success');
+                    await loadUserData();
+                } else {
+                    showToast(result.message || 'Failed to reset ad limits', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Reset ad limits error:', error);
+                showToast('Failed to reset ad limits', 'error');
+            }
+        }
+        
+        async function resetAllCredits() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            if (!confirm('⚠️ DANGER: This will set ALL user credits to 0. Are you sure?')) return;
+            
+            const confirmText = prompt('Type "CONFIRM" to proceed:');
+            if (confirmText !== 'CONFIRM') {
+                showToast('Action cancelled', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'reset_all_credits',
+                        confirm: true
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showToast('✅ All user credits reset to 0', 'success');
+                } else {
+                    showToast(result.message || 'Failed to reset credits', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Reset credits error:', error);
+                showToast('Failed to reset credits', 'error');
+            }
+        }
+        
+        async function clearAllHistory() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            if (!confirm('⚠️ DANGER: This will delete ALL transaction history. Are you sure?')) return;
+            
+            const confirmText = prompt('Type "DELETE ALL" to proceed:');
+            if (confirmText !== 'DELETE ALL') {
+                showToast('Action cancelled', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'clear_all_history',
+                        confirm: true
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showToast('✅ All history cleared', 'success');
+                } else {
+                    showToast(result.message || 'Failed to clear history', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Clear history error:', error);
+                showToast('Failed to clear history', 'error');
+            }
+        }
+        
+        async function showBulkOperations() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            const amount = prompt('Enter amount to add to ALL users:');
+            if (!amount) return;
+            
+            if (!confirm(`Add ${amount} credits to ALL users?`)) return;
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'get_users',
+                        limit: 1000
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showToast(`Adding ${amount} credits to all users...`, 'info');
+                    let successCount = 0;
+                    
+                    for (const user of result.users) {
+                        await fetch('/api/admin/manage', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                admin_id: userId,
+                                admin_password: 'admin123',
+                                action: 'add_credits',
+                                user_id: user.user_id,
+                                amount: parseInt(amount)
+                            })
+                        });
+                        successCount++;
+                    }
+                    
+                    showToast(`✅ Added ${amount} credits to ${successCount} users`, 'success');
+                }
+                
+            } catch (error) {
+                console.error('Bulk operation error:', error);
+                showToast('Bulk operation failed', 'error');
+            }
+        }
+        
+        async function showUserSearch() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            const query = prompt('Search users by ID or name:');
+            if (!query) return;
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'search_users',
+                        query: query
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    if (result.users.length === 0) {
+                        showToast('No users found', 'info');
+                        return;
+                    }
+                    
+                    let usersInfo = 'Search Results:\n\n';
+                    result.users.forEach(user => {
+                        usersInfo += `ID: ${user.user_id}\nName: ${user.first_name}\nCredits: ${user.credits}\n---\n`;
+                    });
+                    
+                    alert(usersInfo);
+                } else {
+                    showToast(result.message || 'Search failed', 'error');
+                }
+                
+            } catch (error) {
+                console.error('User search error:', error);
+                showToast('Search failed', 'error');
+            }
+        }
+        
+        async function showItemManagement() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'get_items_admin'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    let itemsInfo = 'Items List:\n\n';
+                    result.items.forEach(item => {
+                        itemsInfo += `ID: ${item.id}\nName: ${item.name}\nPrice: ${item.price}\nStock: ${item.stock}\n---\n`;
+                    });
+                    
+                    alert(itemsInfo);
+                }
+                
+            } catch (error) {
+                console.error('Item management error:', error);
+                showToast('Item management failed', 'error');
+            }
+        }
+        
+        async function showCreateItem() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            const name = prompt('Enter item name:');
+            if (!name) return;
+            
+            const category = prompt('Enter category:');
+            if (!category) return;
+            
+            const price = prompt('Enter price:');
+            if (!price) return;
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'create_item',
+                        item: {
+                            name: name,
+                            category: category,
+                            price: parseInt(price),
+                            stock: 999,
+                            content: 'Account details will be provided after purchase.',
+                            ip: 'Global',
+                            link: 'N/A',
+                            tags: category
+                        }
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showToast('Item created successfully', 'success');
+                } else {
+                    showToast(result.message || 'Create failed', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Create item error:', error);
+                showToast('Create item failed', 'error');
+            }
+        }
+        
+        async function showSystemConfig() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'get_config'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('System configuration loaded to console');
+                    console.log('System Config:', result.config);
+                }
+                
+            } catch (error) {
+                console.error('Config error:', error);
+                showToast('Config operation failed', 'error');
+            }
+        }
+        
+        async function backupDatabase() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'backup_database'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Backup created successfully. Check console for data.');
+                    console.log('Backup Data:', result.backup);
+                }
+                
+            } catch (error) {
+                console.error('Backup error:', error);
+                showToast('Backup failed', 'error');
+            }
+        }
+
+        // ======================
+        // ADDITIONAL ADMIN FUNCTIONS
+        // ======================
+
+        async function showStockManagement() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'get_items_admin'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    let itemsText = '📦 Stock Management\n\n';
+                    result.items.forEach(item => {
+                        itemsText += `ID: ${item.id}\n`;
+                        itemsText += `Name: ${item.name}\n`;
+                        itemsText += `Category: ${item.category}\n`;
+                        itemsText += `Price: ${item.price}\n`;
+                        itemsText += `Stock: ${item.stock}\n`;
+                        itemsText += `Sold: ${item.sold}\n`;
+                        itemsText += `Status: ${item.is_active ? 'Active' : 'Inactive'}\n`;
+                        itemsText += '─'.repeat(30) + '\n';
+                    });
+                    
+                    const choice = prompt(`${itemsText}\n\nEnter:\n1. Update stock\n2. Toggle active status\n3. Delete item`);
+                    
+                    if (choice === '1') {
+                        const itemId = prompt('Enter Item ID to update stock:');
+                        const newStock = prompt('Enter new stock amount:');
+                        
+                        if (itemId && newStock) {
+                            const updateResponse = await fetch('/api/admin/manage', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    admin_id: userId,
+                                    admin_password: 'admin123',
+                                    action: 'update_item',
+                                    item_id: parseInt(itemId),
+                                    updates: {
+                                        stock: parseInt(newStock)
+                                    }
+                                })
+                            });
+                            
+                            const updateResult = await updateResponse.json();
+                            
+                            if (updateResult.success) {
+                                showToast(`✅ Item ${itemId} stock updated to ${newStock}`, 'success');
+                            } else {
+                                showToast(updateResult.message || 'Failed to update stock', 'error');
+                            }
+                        }
+                    } else if (choice === '2') {
+                        const itemId = prompt('Enter Item ID to toggle status:');
+                        
+                        if (itemId) {
+                            // First get current status
+                            const item = result.items.find(i => i.id == itemId);
+                            if (item) {
+                                const newStatus = item.is_active ? 0 : 1;
+                                
+                                const updateResponse = await fetch('/api/admin/manage', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        admin_id: userId,
+                                        admin_password: 'admin123',
+                                        action: 'update_item',
+                                        item_id: parseInt(itemId),
+                                        updates: {
+                                            is_active: newStatus
+                                        }
+                                    })
+                                });
+                                
+                                const updateResult = await updateResponse.json();
+                                
+                                if (updateResult.success) {
+                                    showToast(`✅ Item ${itemId} status updated`, 'success');
+                                }
+                            }
+                        }
+                    } else if (choice === '3') {
+                        const itemId = prompt('Enter Item ID to delete:');
+                        
+                        if (itemId && confirm(`Delete item ${itemId}? This cannot be undone!`)) {
+                            const deleteResponse = await fetch('/api/admin/manage', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    admin_id: userId,
+                                    admin_password: 'admin123',
+                                    action: 'delete_item',
+                                    item_id: parseInt(itemId),
+                                    confirm: true
+                                })
+                            });
+                            
+                            const deleteResult = await deleteResponse.json();
+                            
+                            if (deleteResult.success) {
+                                showToast(`✅ Item ${itemId} deleted`, 'success');
+                            }
+                        }
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Stock management error:', error);
+                showToast('Failed to manage stock', 'error');
+            }
+        }
+
+        async function showSQLTool() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            const query = prompt('Enter SQL Query (SELECT only):\n\nExample: SELECT * FROM users LIMIT 5');
+            if (!query) return;
+            
+            // Security check
+            if (query.toUpperCase().includes('DELETE') || 
+                query.toUpperCase().includes('DROP') || 
+                query.toUpperCase().includes('UPDATE') ||
+                query.toUpperCase().includes('ALTER')) {
+                showToast('Only SELECT queries are allowed for safety', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'execute_sql',
+                        query: query
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    if (result.result && result.result.length > 0) {
+                        let resultText = '📊 SQL Query Results\n\n';
+                        resultText += `Query: ${query}\n`;
+                        resultText += `Rows: ${result.result.length}\n\n`;
+                        
+                        // Show column headers
+                        const firstRow = result.result[0];
+                        const columns = Object.keys(firstRow);
+                        resultText += 'Columns: ' + columns.join(', ') + '\n\n';
+                        
+                        // Show first 5 rows
+                        const rowsToShow = Math.min(result.result.length, 5);
+                        for (let i = 0; i < rowsToShow; i++) {
+                            resultText += `Row ${i+1}: ` + JSON.stringify(result.result[i]) + '\n';
+                        }
+                        
+                        if (result.result.length > 5) {
+                            resultText += `\n... and ${result.result.length - 5} more rows`;
+                        }
+                        
+                        alert(resultText);
+                        console.log('SQL Results:', result.result);
+                    } else {
+                        showToast('✅ Query executed successfully (0 rows returned)', 'success');
+                    }
+                } else {
+                    showToast(`SQL Error: ${result.message}`, 'error');
+                }
+                
+            } catch (error) {
+                console.error('SQL tool error:', error);
+                showToast('Failed to execute SQL', 'error');
+            }
+        }
+
+        async function showAdSettings() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'get_config'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    let adSettingsText = '📺 Ad Settings Manager\n\n';
+                    
+                    const adTypes = ['popup', 'video', 'interstitial', 'banner'];
+                    
+                    for (const adType of adTypes) {
+                        const reward = result.config[`reward_${adType}`] || AD_NETWORKS[adType].reward;
+                        const limit = result.config[`limit_${adType}`] || AD_NETWORKS[adType].dailyLimit;
+                        
+                        adSettingsText += `🔸 ${adType.toUpperCase()} Ads:\n`;
+                        adSettingsText += `   Reward: ${reward} credits\n`;
+                        adSettingsText += `   Daily Limit: ${limit}\n`;
+                        adSettingsText += `   Potential Daily: ${reward * limit} credits\n\n`;
+                    }
+                    
+                    const selectedAd = prompt(`${adSettingsText}\nSelect ad type to edit (popup/video/interstitial/banner/all):`);
+                    
+                    if (selectedAd) {
+                        if (selectedAd.toLowerCase() === 'all') {
+                            // Edit all ad types
+                            const newReward = prompt('Enter new reward for ALL ad types:');
+                            const newLimit = prompt('Enter new daily limit for ALL ad types:');
+                            
+                            if (newReward && newLimit) {
+                                const updates = {};
+                                for (const adType of adTypes) {
+                                    updates[`reward_${adType}`] = newReward;
+                                    updates[`limit_${adType}`] = newLimit;
+                                    
+                                    // Update local
+                                    AD_NETWORKS[adType].reward = parseInt(newReward);
+                                    AD_NETWORKS[adType].dailyLimit = parseInt(newLimit);
+                                }
+                                
+                                const updateResponse = await fetch('/api/admin/manage', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        admin_id: userId,
+                                        admin_password: 'admin123',
+                                        action: 'update_config',
+                                        updates: updates
+                                    })
+                                });
+                                
+                                const updateResult = await updateResponse.json();
+                                
+                                if (updateResult.success) {
+                                    showToast(`✅ All ad types updated: ${newReward} credits, ${newLimit}/day`, 'success');
+                                    updateAllAdCounts();
+                                }
+                            }
+                        } else if (adTypes.includes(selectedAd.toLowerCase())) {
+                            const adType = selectedAd.toLowerCase();
+                            const currentReward = result.config[`reward_${adType}`] || AD_NETWORKS[adType].reward;
+                            const currentLimit = result.config[`limit_${adType}`] || AD_NETWORKS[adType].dailyLimit;
+                            
+                            const newReward = prompt(`Current reward: ${currentReward}\nEnter new reward:`, currentReward);
+                            const newLimit = prompt(`Current daily limit: ${currentLimit}\nEnter new daily limit:`, currentLimit);
+                            
+                            if (newReward !== null && newLimit !== null) {
+                                const updateResponse = await fetch('/api/admin/manage', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        admin_id: userId,
+                                        admin_password: 'admin123',
+                                        action: 'update_config',
+                                        updates: {
+                                            [`reward_${adType}`]: newReward,
+                                            [`limit_${adType}`]: newLimit
+                                        }
+                                    })
+                                });
+                                
+                                const updateResult = await updateResponse.json();
+                                
+                                if (updateResult.success) {
+                                    // Update local AD_NETWORKS
+                                    AD_NETWORKS[adType].reward = parseInt(newReward);
+                                    AD_NETWORKS[adType].dailyLimit = parseInt(newLimit);
+                                    
+                                    showToast(`✅ ${adType} ads updated: ${newReward} credits, ${newLimit}/day`, 'success');
+                                    updateAllAdCounts();
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Ad settings error:', error);
+                showToast('Failed to load ad settings', 'error');
+            }
+        }
+
+        async function showAdStats() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/manage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        admin_id: userId,
+                        admin_password: 'admin123',
+                        action: 'get_stats'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    const stats = result.stats;
+                    
+                    let statsText = '📊 Ad Statistics Dashboard\n';
+                    statsText += '═'.repeat(40) + '\n\n';
+                    
+                    statsText += '👥 USER STATISTICS\n';
+                    statsText += '─'.repeat(40) + '\n';
+                    statsText += `• Total Users: ${stats.total_users}\n`;
+                    statsText += `• Active Today: ${stats.active_today}\n`;
+                    statsText += `• Total Credits in System: ${stats.total_credits}\n\n`;
+                    
+                    statsText += '📺 AD PERFORMANCE\n';
+                    statsText += '─'.repeat(40) + '\n';
+                    let totalAdViews = 0;
+                    let totalAdCredits = 0;
+                    
+                    for (const [adType, count] of Object.entries(stats.ad_stats)) {
+                        const config = AD_NETWORKS[adType];
+                        const reward = config ? config.reward : 0;
+                        const totalEarned = count * reward;
+                        totalAdViews += count;
+                        totalAdCredits += totalEarned;
+                        
+                        statsText += `• ${adType.toUpperCase()}: ${count} views × ${reward} = ${totalEarned} credits\n`;
+                    }
+                    
+                    statsText += `\n📈 TOTALS: ${totalAdViews} views → ${totalAdCredits} credits\n\n`;
+                    
+                    statsText += '🛍️ SHOP STATISTICS\n';
+                    statsText += '─'.repeat(40) + '\n';
+                    statsText += `• Total Items: ${stats.total_items}\n`;
+                    statsText += `• Total Sales Value: ${stats.total_sales} credits\n`;
+                    statsText += `• Total Earned: ${stats.total_earned} credits\n`;
+                    statsText += `• Total Spent: ${stats.total_spent} credits\n`;
+                    statsText += `• Net Balance: ${stats.total_earned - stats.total_spent} credits\n\n`;
+                    
+                    statsText += '📅 REPORT DATE\n';
+                    statsText += '─'.repeat(40) + '\n';
+                    statsText += new Date().toLocaleString();
+                    
+                    // Create a modal to show stats
+                    const statsModal = document.createElement('div');
+                    statsModal.className = 'modal active';
+                    statsModal.innerHTML = `
+                        <div class="modal-content" style="max-width: 600px;">
+                            <div class="modal-header">
+                                <div class="modal-title">📊 System Statistics</div>
+                                <div class="modal-close" onclick="this.parentElement.parentElement.remove()">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div style="font-family: monospace; white-space: pre-wrap; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; max-height: 400px; overflow-y: auto;">
+                                    ${statsText}
+                                </div>
+                                <div class="modal-actions">
+                                    <button class="modal-btn btn-primary" onclick="this.closest('.modal').remove()">
+                                        <i class="fas fa-check"></i> Close
+                                    </button>
+                                    <button class="modal-btn btn-success" onclick="navigator.clipboard.writeText(\`${statsText}\').then(() => showToast('✅ Stats copied!', 'success'))">
+                                        <i class="fas fa-copy"></i> Copy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(statsModal);
+                    
+                } else {
+                    showToast(result.message || 'Failed to load stats', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Ad stats error:', error);
+                showToast('Failed to load ad statistics', 'error');
+            }
+        }
+
+        async function showRestartSystem() {
+            if (!isAdmin) {
+                adminLogin();
+                return;
+            }
+            
+            const action = prompt('🔄 System Restart Options:\n\n1. Soft Restart (Refresh data)\n2. Reset All Ad Counts\n3. Clear Cache\n4. Restart Server (Simulated)\n\nEnter choice:');
+            
+            if (!action) return;
+            
+            try {
+                if (action === '1') {
+                    showToast('🔄 Refreshing system data...', 'info');
+                    await loadUserData();
+                    await loadShopItems();
+                    await loadHistory();
+                    await loadPurchasedItems();
+                    showToast('✅ System data refreshed!', 'success');
+                    
+                } else if (action === '2') {
+                    if (confirm('Reset ALL user ad counts to 0?')) {
+                        await resetAllAdLimits();
+                    }
+                    
+                } else if (action === '3') {
+                    // Clear local storage
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    showToast('✅ Browser cache cleared!', 'success');
+                    
+                } else if (action === '4') {
+                    if (confirm('Simulate server restart? This will refresh all connections.')) {
+                        showToast('🔄 Restarting server...', 'info');
+                        
+                        // Simulate restart delay
+                        setTimeout(() => {
+                            showToast('✅ Server restart complete!', 'success');
+                            refreshData();
+                        }, 2000);
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Restart error:', error);
+                showToast('Failed to restart system', 'error');
+            }
+        }
+        
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
+        });
+    </script>
+</body>
+</html>
