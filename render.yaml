@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: own-bazar-web
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_ID
+        value: "6068468333"
+      - key: ADMIN_PASSWORD
+        value: "admin123"
+      - key: RENDER_EXTERNAL_URL
+        fromService:
+          type: web
+          name: own-bazar-web
+          property: url
+  
+  - type: worker
+    name: own-bazar-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot_worker.py
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: RENDER_EXTERNAL_URL
+        fromService:
+          type: web
+          name: own-bazar-web
+          property: url
